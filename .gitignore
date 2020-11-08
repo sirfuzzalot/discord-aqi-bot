@@ -1,0 +1,11 @@
+.env
+.py[cdo]
+__pycache__
+node_modules
+
+# Serverless directories
+.serverless
+serverless.yml
+
+# Other
+env.json

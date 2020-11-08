@@ -1,0 +1,11 @@
+{
+  "name": "aqi-bot",
+  "version": "1.0.0",
+  "description": "AQI Bot",
+  "author": "sirfuzzalot",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "serverless-python-requirements": "^5.1.0"
+  },
+  "dependencies": {}
+}

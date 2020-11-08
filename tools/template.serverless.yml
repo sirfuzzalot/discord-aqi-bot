@@ -1,0 +1,36 @@
+org: # Serverless organization name. Typically your username.
+app: # Serverless App name from the Serverless Web UI.
+service: aqi-bot
+
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: prod
+  region: # AWS region for the Lambda. Ex: us-west-2
+
+package:
+  include:
+    - requirements.txt
+    - handler.py
+    - lib/**
+
+functions:
+  aqi-report:
+    handler: handler.aqi_report
+    events:
+      - schedule: # Your cron expression in UTC. Ex: cron(0 1,16 * * ? *)
+    memorySize: 128
+    environment:
+      AQI_BOT_AIRNOW_API_TOKEN: ${file(./env.json):AQI_BOT_AIRNOW_API_TOKEN}
+      AQI_BOT_AIRNOW_ZIP_CODE: ${file(./env.json):AQI_BOT_AIRNOW_ZIP_CODE}
+      AQI_BOT_DISCORD_BOT_URL: ${file(./env.json):AQI_BOT_DISCORD_BOT_URL}
+      AQI_BOT_MORNING_RANGE_UTC: ${file(./env.json):AQI_BOT_MORNING_RANGE_UTC}
+
+plugins:
+  - serverless-python-requirements
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    slim: true
